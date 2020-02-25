@@ -33,7 +33,9 @@ namespace CustomerService
             var connection = Configuration.GetConnectionString("CustomerConnection");
             services.AddDbContext<CustomerContext>(c => c.UseSqlServer(connection));
             services.AddControllers();
-            services.AddMvcCore(options =>
+            
+            //TODO: Figure out what and when to use from MvcCore options
+            /*services.AddMvcCore(options =>
             {
                 options.RequireHttpsPermanent = true; // does not affect api requests
                 options.RespectBrowserAcceptHeader = true; // false by default
@@ -42,7 +44,7 @@ namespace CustomerService
             })
             .AddFormatterMappings()
             .AddDataAnnotations()
-            .AddCors();
+            .AddCors(); */
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
@@ -60,7 +62,7 @@ namespace CustomerService
 
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

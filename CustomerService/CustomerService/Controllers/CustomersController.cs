@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CustomerService.Data.Interfaces;
 using CustomerService.Data.Models;
+using System.Threading;
 
 namespace CustomerService.Controllers
 {
     [ApiController]
-    [Route("api/customers")]
-    public class CustomersController : BaseApiController
+    [Route("api/[controller]")]
+    public class CustomersController : ControllerBase
     {
         ICustomerRepository _customerRepository;
 
@@ -21,7 +22,7 @@ namespace CustomerService.Controllers
             _customerRepository = customerRepository;
         }
 
-        [HttpGet("/{customerId}")]
+        [HttpGet("{customerId}")]
         public async Task<IActionResult> GetCustomer(String customerId)
         {
             Customers customer = await _customerRepository.GetByIdAsync(customerId);

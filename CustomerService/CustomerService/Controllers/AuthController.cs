@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerService.Controllers
 {
-    [Route("api/auth")]
-    public class AuthController : BaseApiController
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
     {
         private UserRepository _userRepository;
 
@@ -19,8 +20,7 @@ namespace CustomerService.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpPost]
-        [Route("/signin")]
+        [HttpGet("/signin")]
         public async Task<IActionResult> SignIn(String username)
         {
             var user = await _userRepository.GetByUsername(username);
