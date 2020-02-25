@@ -1,5 +1,6 @@
 ﻿using CustomerService.Data.Interfaces;
 using CustomerService.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,11 @@ namespace CustomerService.Data.Repositories
     public class CustomerRepository : BaseRepository<Customers>, ICustomerRepository
     {
         public CustomerRepository(CustomerContext customerContext) : base(customerContext) { }
+
+        public Task<Customers> GetByIdAsync(string customerId)
+        {
+            Guid guid = new Guid(customerId.Trim());
+            return _dbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == guid);
+        }
     }
 }

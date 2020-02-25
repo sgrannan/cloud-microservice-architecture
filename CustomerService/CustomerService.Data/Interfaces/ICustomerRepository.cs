@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace CustomerService.Data.Interfaces
 {
     public interface ICustomerRepository : IAsyncRepository<Customers>
-    {        
+    {
+        Task<Customers> GetByIdAsync(string customerId);
     }
 }

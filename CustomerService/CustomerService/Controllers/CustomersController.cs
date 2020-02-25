@@ -5,16 +5,28 @@ using System.Threading.Tasks;
 using CustomerService.Models.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CustomerService.Data.Interfaces;
+using CustomerService.Data.Models;
 
 namespace CustomerService.Controllers
 {
+    [ApiController]
+    [Route("api/customers")]
     public class CustomersController : BaseApiController
     {
-        [Route("/{customerId}")]
-        [HttpGet]
-        public async Task<IActionResult> GetCustomer(int CustomerId)
+        ICustomerRepository _customerRepository;
+
+        public CustomersController(ICustomerRepository customerRepository)
         {
-            var response = new CustomerResponse();
+            _customerRepository = customerRepository;
+        }
+
+        [HttpGet("/{customerId}")]
+        public async Task<IActionResult> GetCustomer(String customerId)
+        {
+            Customers customer = await _customerRepository.GetByIdAsync(customerId);
+
+            var response = new CustomerResponse(customer);
 
             return new OkObjectResult(response);
         }

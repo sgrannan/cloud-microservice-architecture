@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using NetCore.AutoRegisterDi;
+using CustomerService.Data.Interfaces;
+using CustomerService.Data.Repositories;
 
 namespace CustomerService
 {
@@ -37,10 +40,12 @@ namespace CustomerService
 
                 // custom formatters go here...when needed..
             })
-            .AddAuthorization()
             .AddFormatterMappings()
             .AddDataAnnotations()
             .AddCors();
+
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +60,7 @@ namespace CustomerService
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

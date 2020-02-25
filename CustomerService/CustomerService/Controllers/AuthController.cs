@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerService.Controllers
-{    
+{
+    [Route("api/auth")]
     public class AuthController : BaseApiController
     {
         private UserRepository _userRepository;
