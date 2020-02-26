@@ -14,7 +14,7 @@ namespace CustomerService.Data.Repositories
 
         public Task<Users> GetByUsername(string username)
         {
-            return _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
+            return _dbContext.Users.Include(u => u.Customer).FirstOrDefaultAsync(u => u.Username == username);
         }
     }
 }

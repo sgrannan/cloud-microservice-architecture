@@ -12,10 +12,10 @@ namespace CustomerService.Data.Repositories
     {
         public CustomerRepository(CustomerContext customerContext) : base(customerContext) { }
 
-        public Task<Customers> GetByIdAsync(string customerId)
+        public async Task<Customers> GetByIdAsync(string customerId)
         {
             Guid guid = new Guid(customerId.Trim());
-            return _dbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == guid);
+            return await _dbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == guid);
         }
     }
 }
