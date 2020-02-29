@@ -15,7 +15,7 @@ namespace CustomerService.Data.Repositories
         public async Task<Customers> GetByIdAsync(string customerId)
         {
             Guid guid = new Guid(customerId.Trim());
-            return await _dbContext.Customers.FirstOrDefaultAsync(c => c.CustomerId == guid);
+            return await _dbContext.Customers.Include(a => a.Addresses).FirstOrDefaultAsync(c => c.CustomerId == guid);
         }
     }
 }

@@ -9,9 +9,13 @@ namespace CustomerService.Models.Request
     public class AuthRequest
     {
         [Required]
-        private String Username;
+        private String _username;
         
         [Required]
-        private String Password;
+        private String _password;
+
+        public string Username { get => _username; set => _username = value; }
+
+        public string Password { get => _password; set => _password = value; }
     }
 }

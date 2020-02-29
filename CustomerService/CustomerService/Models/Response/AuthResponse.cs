@@ -11,7 +11,6 @@ namespace CustomerService.Models.Response
         private String username;
         private String customerName;
         private Guid customerId;
-        private Task<Users> user;
 
         public AuthResponse(Users user)
         {

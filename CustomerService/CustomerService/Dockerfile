@@ -1,20 +1,20 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["AccountService/AccountService.csproj", "AccountService/"]
-RUN dotnet restore "AccountService/AccountService.csproj"
+COPY ["CustomerService/CustomerService.csproj", "CustomerService/"]
+RUN dotnet restore "CustomerService/CustomerService.csproj"
 COPY . .
-WORKDIR "/src/AccountService"
-RUN dotnet build "AccountService.csproj" -c Release -o /app/build
+WORKDIR "/src/CustomerService"
+RUN dotnet build "CustomerService.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "AccountService.csproj" -c Release -o /app/publish
+RUN dotnet publish "CustomerService.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AccountService.dll"]
+ENTRYPOINT ["dotnet", "CustomerService.dll"]

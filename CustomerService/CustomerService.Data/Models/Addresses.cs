@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace CustomerService.Data.Models
@@ -14,6 +15,7 @@ namespace CustomerService.Data.Models
         public int? Zipcode { get; set; }
         public Guid CustomerId { get; set; }
 
+        [JsonIgnore]
         public virtual Customers Customer { get; set; }
     }
 }
