@@ -27,5 +27,13 @@ namespace InventoryService.Controllers
 
             return new OkObjectResult(items);
         }
+
+        [HttpGet("{itemId}")]
+        public async Task<IActionResult> GetByItemId(String itemId)
+        {
+            Items item = await _itemRepository.GetByIdAsync(itemId);
+
+            return new OkObjectResult(item);
+        }
     }
 }
